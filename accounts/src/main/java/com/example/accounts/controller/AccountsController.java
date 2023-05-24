@@ -65,6 +65,16 @@ public class AccountsController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @DeleteMapping("/account/{accountId}")
+public ResponseEntity<HttpStatus> deleteAccount(@PathVariable("accountId") long accountId) {
+    try {
+        accountRepository.deleteById(accountId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    } catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
 
     @GetMapping("/hello")
     public String ping() {
