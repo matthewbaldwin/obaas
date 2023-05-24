@@ -40,6 +40,20 @@ public class AccountsController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/account/getAccounts/{customerId}")
+public ResponseEntity<List<Account>> getAccountsByCustomerId(@PathVariable("customerId") String customerId) {
+    try {
+        List<Account> accountData = new ArrayList<Account>();
+        accountData.addAll(accountRepository.findByAccountCustomerId(customerId));
+        if (accountData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(accountData, HttpStatus.OK);
+    } catch (Exception e) {
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
 
     
 
