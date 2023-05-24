@@ -24,6 +24,17 @@ public class AccountsController {
     public AccountsController(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
+    
+    @PostMapping("/account")
+    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+    try {
+        Account _account = accountRepository.saveAndFlush(account);
+        return new ResponseEntity<>(_account, HttpStatus.CREATED);
+    } catch (Exception e) {
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
 
     @GetMapping("/accounts")
     public List<Account> getAllAccounts() {
